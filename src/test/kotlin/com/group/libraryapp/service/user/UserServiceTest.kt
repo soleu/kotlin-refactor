@@ -26,7 +26,7 @@ class UserServiceTest @Autowired constructor(
     @Test
     fun saveUserTest() {
         // given
-        val request = UserCreateRequest("sol", 12)
+        val request = UserCreateRequest("sol", null)
 
         // when
         userService.saveUser(request)
@@ -35,7 +35,7 @@ class UserServiceTest @Autowired constructor(
         val results = userRepository.findAll()
         assertThat(results).hasSize(1)
         assertThat(results[0].name).isEqualTo("sol")
-        assertThat(results[0].age).isEqualTo(12)
+        assertThat(results[0].age).isEqualTo(null)
     }
 
     @Test
