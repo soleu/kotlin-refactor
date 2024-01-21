@@ -49,7 +49,7 @@ class JunitCalculatorTest {
         val calculator = Calculator(5)
 
         // when
-        calculator.multiply(2)
+        calculator.divide(2)
 
         // then
         assertThat(calculator.number).isEqualTo(2)
@@ -63,6 +63,6 @@ class JunitCalculatorTest {
         // when & then
         val message = assertThrows<IllegalArgumentException> { calculator.divide(0) }.message
 
-        assertThat(message).isEqualTo("cannot divided by 0")
+        assertThat(message).isEqualTo("cannot divide by 0")
     }
 }

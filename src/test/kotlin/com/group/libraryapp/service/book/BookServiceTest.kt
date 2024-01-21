@@ -29,6 +29,8 @@ class BookServiceTest @Autowired constructor(
     @AfterEach
     fun clean() {
         bookRepository.deleteAll()
+        userRepository.deleteAll()
+        userLoanHistoryRepository.deleteAll()
     }
 
     @Test
