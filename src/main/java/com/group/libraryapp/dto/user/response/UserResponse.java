@@ -1,7 +1,7 @@
 package com.group.libraryapp.dto.user.response;
 
 
-import com.group.libraryapp.user.domain.User;
+import com.group.libraryapp.domain.user.User;
 
 public class UserResponse {
 

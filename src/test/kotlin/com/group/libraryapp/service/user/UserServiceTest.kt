@@ -1,9 +1,9 @@
 package com.group.libraryapp.service.user
 
-import com.group.libraryapp.user.domain.User
+import com.group.libraryapp.domain.user.User
 import com.group.libraryapp.dto.user.request.UserCreateRequest
 import com.group.libraryapp.dto.user.request.UserUpdateRequest
-import com.group.libraryapp.user.domain.UserRepository
+import com.group.libraryapp.domain.user.UserRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
@@ -46,7 +46,7 @@ class UserServiceTest @Autowired constructor(
         ))
 
         // when
-        val results = userService.users
+        val results = userService.getUsers()
 
         // then
         assertThat(results).hasSize(2)

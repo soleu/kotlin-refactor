@@ -1,4 +1,4 @@
-package com.group.libraryapp.user.domain.loadHistory
+package com.group.libraryapp.domain.user.loadHistory
 
 import org.springframework.data.jpa.repository.JpaRepository
 

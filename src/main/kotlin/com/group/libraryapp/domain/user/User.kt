@@ -1,7 +1,7 @@
-package com.group.libraryapp.user.domain
+package com.group.libraryapp.domain.user
 
 import com.group.libraryapp.domain.book.Book
-import com.group.libraryapp.user.domain.loadHistory.UserLoanHistory
+import com.group.libraryapp.domain.user.loadHistory.UserLoanHistory
 import java.lang.IllegalArgumentException
 import javax.persistence.CascadeType
 import javax.persistence.Entity

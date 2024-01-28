@@ -1,6 +1,6 @@
-package com.group.libraryapp.user.domain.loadHistory
+package com.group.libraryapp.domain.user.loadHistory
 
-import com.group.libraryapp.user.domain.User
+import com.group.libraryapp.domain.user.User
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
