@@ -26,6 +26,13 @@ class UserLoanHistory(
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long? = null,
 ) {
+
+    /**
+     * 내부 동작을 넣음으로서 중복 로직 제거
+     */
+    val isReturn: Boolean
+        get() = this.status == UserLoanStatus.RETURNED
+
     fun doReturn() {
         this.status = UserLoanStatus.RETURNED
     }
