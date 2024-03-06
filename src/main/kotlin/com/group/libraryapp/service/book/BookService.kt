@@ -49,15 +49,16 @@ class BookService(
 
     @Transactional(readOnly = true)
     fun countLoanBook(): Int {
-        return userLoanHistoryRepository.findAllByStatus(UserLoanStatus.LOANED)
-                .size
+        return userLoanHistoryRepository.countByStatus(UserLoanStatus.LOANED).toInt()
     }
 
     @Transactional(readOnly = true)
     fun getBookStatistics(): List<BookStatResponse> {
+
+
         return bookRepository.findAll() // List<Book>
                 .groupBy { book -> book.type } // Map<BookType, List<Book>>
-                .map { (type, books) -> BookStatResponse(books.size, type) } // List<BookStatResponse>
+                .map { (type, books) -> BookStatResponse(books.size.toLong(), type) } // List<BookStatResponse>
         // count 대신 size를 세어 대체함
 
 //        // call chain 이 길어 가독성 떨어짐
