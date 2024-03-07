@@ -9,6 +9,8 @@ import com.group.libraryapp.dto.book.request.BookLoanRequest
 import com.group.libraryapp.dto.book.request.BookRequest
 import com.group.libraryapp.dto.book.request.BookReturnRequest
 import com.group.libraryapp.dto.book.response.BookStatResponse
+import com.group.libraryapp.repository.book.BookQuerydslRepository
+import com.group.libraryapp.repository.user.loanHistory.UserLoanHistoryQuerydslRepository
 import com.group.libraryapp.util.fail
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -16,8 +18,10 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class BookService(
         private val bookRepository: BookRepository,
+        private val bookQueryDslRepository: BookQuerydslRepository,
         private val userRepository: UserRepository,
-        private val userLoanHistoryRepository: UserLoanHistoryRepository,
+//        private val userLoanHistoryRepository: UserLoanHistoryRepository,
+        private val userLoanHistoryQuerydslRepository: UserLoanHistoryQuerydslRepository,
 ) {
     @Transactional
     fun saveBook(request: BookRequest) {
@@ -30,7 +34,7 @@ class BookService(
         val book = bookRepository.findByName(request.bookName)
                 ?: fail()
 //                .orElseThrow(::IllegalArgumentException)
-        if (userLoanHistoryRepository.findByBookNameAndStatus(request.bookName, UserLoanStatus.LOANED)
+        if (userLoanHistoryQuerydslRepository.find(request.bookName, UserLoanStatus.LOANED)
                 != null) {
             throw IllegalArgumentException("진작 대출되어 있는 책입니다")
         }
@@ -49,16 +53,16 @@ class BookService(
 
     @Transactional(readOnly = true)
     fun countLoanBook(): Int {
-        return userLoanHistoryRepository.countByStatus(UserLoanStatus.LOANED).toInt()
+        return userLoanHistoryQuerydslRepository.count(UserLoanStatus.LOANED).toInt()
     }
 
     @Transactional(readOnly = true)
     fun getBookStatistics(): List<BookStatResponse> {
 
-
-        return bookRepository.findAll() // List<Book>
-                .groupBy { book -> book.type } // Map<BookType, List<Book>>
-                .map { (type, books) -> BookStatResponse(books.size.toLong(), type) } // List<BookStatResponse>
+        return bookQueryDslRepository.getStats()
+//        return bookRepository.findAll() // List<Book>
+//                .groupBy { book -> book.type } // Map<BookType, List<Book>>
+//                .map { (type, books) -> BookStatResponse(books.size.toLong(), type) } // List<BookStatResponse>
         // count 대신 size를 세어 대체함
 
 //        // call chain 이 길어 가독성 떨어짐
